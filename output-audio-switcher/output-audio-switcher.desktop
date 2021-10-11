@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Output Audio Switcher
+GenericName=OutputAudioSwitcher
+Comment=Switch easily between output audio ports
+Exec=~/Apps/ubuntu-personal-tools/output-audio-switcher/output-audio-switcher.sh
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=~/Apps/ubuntu-personal-tools/output-audio-switcher/output-audio-switcher.webp
