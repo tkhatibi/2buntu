@@ -32,6 +32,7 @@ main() {
         aria2 \
         vokoscreen \
         peek \
+        uget \
         -y
 
     usermod -aG nordvpn $USER
