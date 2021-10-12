@@ -22,6 +22,8 @@ main() {
 
     usermod -aG nordvpn $USER
 
+    sudo ubuntu-drivers autoinstall
+
     __install_nvm_node_yarn
 
     __install_v2ray
@@ -125,4 +127,6 @@ __get_latest_release() {
     sed -E 's/.*"([^"]+)".*/\1/' # Pluck JSON value
 }
 
-main
+# main
+
+__install_remote_deb https://atomicwallet.io/download/atomicwallet.deb
