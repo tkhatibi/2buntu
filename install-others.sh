@@ -7,6 +7,8 @@ main() {
 
     output-audio-switcher/install.sh
 
+    __install_remote_deb https://atomicwallet.io/download/atomicwallet.deb
+
     __install_remote_deb https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
 
     __install_remote_deb https://go.skype.com/skypeforlinux-64.deb
