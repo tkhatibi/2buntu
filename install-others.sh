@@ -33,6 +33,7 @@ main() {
         vokoscreen \
         peek \
         uget \
+        qbittorrent \
         -y
 
     usermod -aG nordvpn $USER
