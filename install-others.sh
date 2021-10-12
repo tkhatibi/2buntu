@@ -30,6 +30,7 @@ main() {
         curl \
         tor \
         aria2 \
+        vokoscreen \
         -y
 
     usermod -aG nordvpn $USER
