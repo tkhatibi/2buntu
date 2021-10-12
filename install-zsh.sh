@@ -14,4 +14,4 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 
 sed -i 's|# source $ZSH/oh-my-zsh.sh|source $ZSH/oh-my-zsh.sh|g' ~/.zshrc
 
-echo 'go to install-nvm-node-yarn.sh'
+echo 'go to install-others.sh'
