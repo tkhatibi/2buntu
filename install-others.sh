@@ -31,6 +31,7 @@ main() {
         tor \
         aria2 \
         vokoscreen \
+        peek \
         -y
 
     usermod -aG nordvpn $USER
