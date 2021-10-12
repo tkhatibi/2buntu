@@ -1,24 +1,6 @@
 #!/bin/bash
 
 main() {
-    __install_nvm_node_yarn
-
-    __install_v2ray
-
-    output-audio-switcher/install.sh
-
-    __install_remote_deb https://atomicwallet.io/download/atomicwallet.deb
-
-    __install_remote_deb https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
-
-    __install_remote_deb https://go.skype.com/skypeforlinux-64.deb
-
-    __install_remote_deb https://downloads.slack-edge.com/releases/linux/4.20.0/prod/x64/slack-desktop-4.20.0-amd64.deb
-
-    __install_remote_deb https://dl.strem.io/shell-linux/v4.4.137/stremio_4.4.137-1_amd64.deb
-
-    sudo snap install postman
-
     __add_repositories
 
     sudo apt-get update
@@ -40,7 +22,25 @@ main() {
 
     usermod -aG nordvpn $USER
 
+    __install_nvm_node_yarn
+
+    __install_v2ray
+
     __install_docker
+
+    output-audio-switcher/install.sh
+
+    __install_remote_deb https://atomicwallet.io/download/atomicwallet.deb
+
+    __install_remote_deb https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
+
+    __install_remote_deb https://go.skype.com/skypeforlinux-64.deb
+
+    __install_remote_deb https://downloads.slack-edge.com/releases/linux/4.20.0/prod/x64/slack-desktop-4.20.0-amd64.deb
+
+    __install_remote_deb https://dl.strem.io/shell-linux/v4.4.137/stremio_4.4.137-1_amd64.deb
+
+    sudo snap install postman
 
     __show_unsupported_list
 }
