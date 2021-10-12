@@ -8,4 +8,4 @@ SHORTCUT_NAME="output-audio-switcher.desktop"
 
 cp $DIR/$SHORTCUT_NAME $APPLICATIONS_DIR
 
-sed -i "s|~/|$HOME/|g" "$APPLICATIONS_DIR/$SHORTCUT_NAME"
+sed -i "s|./|$DIR/|g" "$APPLICATIONS_DIR/$SHORTCUT_NAME"
