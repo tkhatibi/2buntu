@@ -6,4 +6,4 @@ sudo sed -i "s|http://ir.|http://de.|g" "/etc/apt/sources.list"
 
 sudo apt-get update
 
-sudo apt-get install network-manager-openvpn -y
+sudo apt-get install network-manager-openvpn curl git -y

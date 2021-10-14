@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install zsh curl -y
+sudo apt-get install zsh -y
 
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
