@@ -27,21 +27,27 @@ main() {
 
     sudo usermod -aG nordvpn $USER
 
-    sudo ubuntu-drivers autoinstall
+    if ! [ -x "$(command -v nvidia-xconfig)" ]; then
+        sudo ubuntu-drivers autoinstall
+    fi
 
-    sudo snap install code --classic
+    if ! [ -x "$(command -v code)" ]; then
+        sudo snap install code --classic
+    fi
 
     sudo snap install telegram-desktop
 
     sudo snap install postman
 
-    __install_nvm_node_yarn
+    if ! [ -x "$(command -v yarn)" ]; then
+        __install_nvm_node_yarn
+    fi
 
     __install_v2ray
 
     __install_remote_deb atomic https://atomicwallet.io/download/atomicwallet.deb
 
-    __install_remote_deb skype https://go.skype.com/skypeforlinux-64.deb
+    __install_remote_deb skypeforlinux https://go.skype.com/skypeforlinux-64.deb
 
     __install_remote_deb slack https://downloads.slack-edge.com/releases/linux/4.20.0/prod/x64/slack-desktop-4.20.0-amd64.deb
 
@@ -60,12 +66,14 @@ __add_repositories() {
 }
 
 __install_remote_deb() {
-    mkdir -p $TEMP_DIR
-    TEMP_FILE="$TEMP_DIR/${1}.deb"
-    if [[ ! -f $TEMP_FILE ]]; then
-        wget -O "$TEMP_FILE" ${2}
+    if ! [ -x "$(command -v ${1})" ]; then
+        mkdir -p $TEMP_DIR
+        TEMP_FILE="$TEMP_DIR/${1}.deb"
+        if [[ ! -f $TEMP_FILE ]]; then
+            wget -O "$TEMP_FILE" ${2}
+        fi
+        sudo apt-get install "$TEMP_FILE" -y
     fi
-    sudo apt-get install "$TEMP_FILE" -y
 }
 
 __install_flatpak() {
@@ -98,29 +106,37 @@ __install_v2ray() {
     VCORE_DIR_PATH="$HOME/.config/qv2ray/vcore"
     VCORE_ZIP_PATH="$VCORE_DIR_PATH/vcore.zip"
 
-    wget -O "$QV2RAY_PATH" https://github.com/Qv2ray/Qv2ray/releases/download/v2.7.0/Qv2ray-v2.7.0-linux-x64.AppImage
+    if ! [ -f $QV2RAY_PATH ]; then
+        wget -O "$QV2RAY_PATH" https://github.com/Qv2ray/Qv2ray/releases/download/v2.7.0/Qv2ray-v2.7.0-linux-x64.AppImage
 
-    chmod +x "$QV2RAY_PATH"
+        chmod +x "$QV2RAY_PATH"
+    fi
 
-    mkdir -p $VCORE_DIR_PATH
+    if ! [ -d $VCORE_DIR_PATH ]; then
+        mkdir -p $VCORE_DIR_PATH
 
-    wget -O "$VCORE_ZIP_PATH" https://github.com/v2fly/v2ray-core/releases/download/v4.42.2/v2ray-linux-64.zip
+        wget -O "$VCORE_ZIP_PATH" https://github.com/v2fly/v2ray-core/releases/download/v4.42.2/v2ray-linux-64.zip
 
-    unzip "$VCORE_ZIP_PATH" -d "$VCORE_DIR_PATH"
+        unzip "$VCORE_ZIP_PATH" -d "$VCORE_DIR_PATH"
 
-    rm -f "$VCORE_ZIP_PATH"
+        rm -f "$VCORE_ZIP_PATH"
+    fi
 }
 
 __install_docker() {
-    sudo sh -c "$(curl -fsSL https://get.docker.com)"
+    if ! [ -x "$(command -v docker)" ]; then
+        sudo sh -c "$(curl -fsSL https://get.docker.com)"
 
-    sudo groupadd docker
+        sudo groupadd docker
 
-    sudo usermod -aG docker $USER
+        sudo usermod -aG docker $USER
+    fi
 
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    if ! [ -x "$(command -v docker-compose)" ]; then
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
-    sudo chmod +x /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+    fi
 
     newgrp docker
 }
@@ -131,4 +147,10 @@ __get_latest_release() {
     sed -E 's/.*"([^"]+)".*/\1/' # Pluck JSON value
 }
 
-main
+# main
+    if ! [ -f "./.zshrc" ]; then
+        echo 'oops'
+    fi
+
+    # if ! [ -x "$(command -v docker-compose)" ]; then
+    # fi

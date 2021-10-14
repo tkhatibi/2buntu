@@ -6,7 +6,6 @@ APPLICATIONS_DIR="$HOME/.local/share/applications"
 
 SHORTCUT_NAME="output-audio-switcher.desktop"
 
-
 if [[ -f $APPLICATIONS_DIR ]]; then
     rm -f $APPLICATIONS_DIR
 fi
