@@ -43,6 +43,8 @@ main() {
 
     __install_remote_deb https://dl.strem.io/shell-linux/v4.4.137/stremio_4.4.137-1_amd64.deb
 
+    __install_flatpak
+
     __install_docker
 }
 
@@ -58,6 +60,12 @@ __install_remote_deb() {
     wget -O "$TEMP_FILE" ${1}
     sudo apt-get install "$TEMP_FILE" -y
     rm -f "$TEMP_FILE"
+}
+
+__install_flatpak() {
+    sudo apt-get install flatpak -y
+
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
 __install_nvm_node_yarn() {
