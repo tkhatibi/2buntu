@@ -16,6 +16,7 @@ main() {
         aria2 \
         vokoscreen \
         peek \
+        vlc \
         uget \
         qbittorrent \
         -y
