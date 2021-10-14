@@ -6,12 +6,11 @@ main() {
     sudo apt-get update
 
     sudo apt-get install \
+        git \
+        gnome-keyring \
         spotify-client \
         stacer \
         nordvpn \
-        gnome-keyring \
-        git \
-        curl \
         tor \
         aria2 \
         vokoscreen \
@@ -20,7 +19,7 @@ main() {
         qbittorrent \
         -y
 
-    usermod -aG nordvpn $USER
+    sudo usermod -aG nordvpn $USER
 
     sudo ubuntu-drivers autoinstall
 
@@ -28,13 +27,9 @@ main() {
 
     __install_v2ray
 
-    __install_docker
-
     output-audio-switcher/install.sh
 
     __install_remote_deb https://atomicwallet.io/download/atomicwallet.deb
-
-    __install_remote_deb https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
 
     __install_remote_deb https://go.skype.com/skypeforlinux-64.deb
 
@@ -44,14 +39,23 @@ main() {
 
     sudo snap install postman
 
-    __show_unsupported_list
+    __install_docker
 }
 
-__show_unsupported_list() {
-    echo "You need to instll these packages manually:"
-    echo "  - 30nama"
-    echo "  - VSCode"
-    echo "  - Time Doctor"
+__add_repositories() {
+    curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+
+    sudo add-apt-repository ppa:oguzhaninan/stacer
+
+    __install_remote_deb https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
+}
+
+__install_remote_deb() {
+    TEMP_FILE="$(mktemp).deb"
+    wget -O "$TEMP_FILE" ${1}
+    sudo apt-get install "$TEMP_FILE" -y
+    rm -f "$TEMP_FILE"
 }
 
 __install_nvm_node_yarn() {
@@ -65,6 +69,8 @@ __install_nvm_node_yarn() {
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> ~/.bashrc
     echo '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.zshrc
     echo '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.bashrc
+
+    zsh
 
     nvm install --lts
 
@@ -98,27 +104,11 @@ __install_docker() {
 
     sudo usermod -aG docker $USER
 
-    newgrp docker
-
-    docker run hello-world
-
     sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
     sudo chmod +x /usr/local/bin/docker-compose
-}
 
-__add_repositories() {
-    curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
-    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-
-    sudo add-apt-repository ppa:oguzhaninan/stacer
-}
-
-__install_remote_deb() {
-    TEMP_FILE="$(mktemp).deb"
-    wget -O "$TEMP_FILE" ${1}
-    sudo apt-get install "$TEMP_FILE" -y
-    rm -f "$TEMP_FILE"
+    newgrp docker
 }
 
 __get_latest_release() {
@@ -127,6 +117,4 @@ __get_latest_release() {
     sed -E 's/.*"([^"]+)".*/\1/' # Pluck JSON value
 }
 
-# main
-
-__install_remote_deb https://atomicwallet.io/download/atomicwallet.deb
+main
