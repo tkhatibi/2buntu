@@ -1,12 +1,13 @@
 #!/bin/bash
 
 main() {
+    output-audio-switcher/install.sh
+
     __add_repositories
 
     sudo apt-get update
 
     sudo apt-get install \
-        git \
         gnome-keyring \
         spotify-client \
         stacer \
@@ -23,11 +24,13 @@ main() {
 
     sudo ubuntu-drivers autoinstall
 
+    sudo snap install telegram-desktop
+
+    sudo snap install postman
+
     __install_nvm_node_yarn
 
     __install_v2ray
-
-    output-audio-switcher/install.sh
 
     __install_remote_deb https://atomicwallet.io/download/atomicwallet.deb
 
@@ -37,18 +40,12 @@ main() {
 
     __install_remote_deb https://dl.strem.io/shell-linux/v4.4.137/stremio_4.4.137-1_amd64.deb
 
-    sudo snap install postman
-
-    sudo snap install telegram-desktop
-
     __install_docker
 }
 
 __add_repositories() {
     curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-
-    sudo add-apt-repository ppa:oguzhaninan/stacer
 
     __install_remote_deb https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
 }
@@ -72,11 +69,9 @@ __install_nvm_node_yarn() {
     echo '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.zshrc
     echo '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.bashrc
 
-    zsh
-
     nvm install --lts
 
-    nvm alias default node
+    # nvm alias default node
 
     npm install --global yarn
 }
