@@ -39,6 +39,8 @@ main() {
 
     sudo snap install postman
 
+    sudo snap install telegram-desktop
+
     __install_docker
 }
 
