@@ -1,5 +1,9 @@
 #!/bin/bash
 
+DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+TEMP_DIR="$DIR/temp"
+
 main() {
     output-audio-switcher/install.sh
 
@@ -35,13 +39,13 @@ main() {
 
     __install_v2ray
 
-    __install_remote_deb https://atomicwallet.io/download/atomicwallet.deb
+    __install_remote_deb atomic https://atomicwallet.io/download/atomicwallet.deb
 
-    __install_remote_deb https://go.skype.com/skypeforlinux-64.deb
+    __install_remote_deb skype https://go.skype.com/skypeforlinux-64.deb
 
-    __install_remote_deb https://downloads.slack-edge.com/releases/linux/4.20.0/prod/x64/slack-desktop-4.20.0-amd64.deb
+    __install_remote_deb slack https://downloads.slack-edge.com/releases/linux/4.20.0/prod/x64/slack-desktop-4.20.0-amd64.deb
 
-    __install_remote_deb https://dl.strem.io/shell-linux/v4.4.137/stremio_4.4.137-1_amd64.deb
+    __install_remote_deb stremio https://dl.strem.io/shell-linux/v4.4.137/stremio_4.4.137-1_amd64.deb
 
     __install_flatpak
 
@@ -52,14 +56,16 @@ __add_repositories() {
     curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
-    __install_remote_deb https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
+    __install_remote_deb nord https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
 }
 
 __install_remote_deb() {
-    TEMP_FILE="$(mktemp).deb"
-    wget -O "$TEMP_FILE" ${1}
+    mkdir -p $TEMP_DIR
+    TEMP_FILE="$TEMP_DIR/${1}.deb"
+    if [[ ! -f $TEMP_FILE ]]; then
+        wget -O "$TEMP_FILE" ${2}
+    fi
     sudo apt-get install "$TEMP_FILE" -y
-    rm -f "$TEMP_FILE"
 }
 
 __install_flatpak() {
