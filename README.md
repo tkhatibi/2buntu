@@ -15,6 +15,5 @@ Connect to your open vpn server and after that run commands bellow:
 
 ## Unsupported for now
 
-- vscode
 - 30nama
 - timedoctor

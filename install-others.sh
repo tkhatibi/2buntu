@@ -25,6 +25,8 @@ main() {
 
     sudo ubuntu-drivers autoinstall
 
+    sudo snap install code --classic
+
     sudo snap install telegram-desktop
 
     sudo snap install postman
