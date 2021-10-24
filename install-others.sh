@@ -71,7 +71,9 @@ __install_apt_packages() {
 
     __install_apt_package stacer
 
-    __install_apt_package stacer
+    __install_apt_package vim
+
+    __install_apt_package neovim
 
     __install_apt_package tor
 
