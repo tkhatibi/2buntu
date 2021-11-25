@@ -13,6 +13,8 @@ APPS_DIR="$HOME/Apps"
 main() {
     output-audio-switcher/install.sh
 
+    nordvpn-switcher/install.sh
+
     __install_local_deb_packages
 
     __install_local_app_images

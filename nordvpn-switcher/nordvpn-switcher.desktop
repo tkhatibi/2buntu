@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Nord VPN Switcher
+GenericName=NordVPNSwitcher
+Comment=Connect/disconnect Nord VPN by one click
+Exec=./nordvpn-switcher.sh
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=./nordvpn-switcher.png
