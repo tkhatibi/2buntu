@@ -149,6 +149,18 @@ __install_flatpak() {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
+__install_flatpack_packages() {
+    __install_flatpack_package fr.handbrake.ghb
+}
+
+__install_flatpack_package() {
+    if ! [ -x "$(command -v ${1})" ]; then
+        flatpak install flathub ${@:1} -y
+
+        TITLE="Flatpack Package" MESSAGE="${1} installed successfully" notify
+    fi
+}
+
 __install_nvm_node_yarn() {
     if ! [ -x "$(command -v nvm)" ]; then
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | zsh
