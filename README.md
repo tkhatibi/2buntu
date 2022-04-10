@@ -2,9 +2,10 @@
 
 ```bash
 ./prepare.sh
+./install-nvidia-drivers.sh
 ```
 
-Connect to your open vpn server and after that run commands bellow:
+Restart and connect to your open vpn server and after that run commands bellow:
 
 ```bash
 ./install-zsh.sh

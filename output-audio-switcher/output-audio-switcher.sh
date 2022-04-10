@@ -1,5 +1,9 @@
 #!/bin/bash
 
+DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+source "$DIR/../notify.sh"
+
 # CURRENT_PROFILE=$(pacmd list-cards | grep "active profile" | cut -d ' ' -f 3-)
 
 main() {
@@ -19,20 +23,12 @@ main() {
         amixer set Surround unmute
         amixer set Center unmute
         amixer set LFE unmute
-        __notify "Switched to $LINEOUT_PORT"
+        TITLE="Output Audio Switcher" MESSAGE="Switched to $LINEOUT_PORT" notify
     else 
         echo "Switching to $HEADPHONES_PORT"
         pacmd set-sink-port $SINK $HEADPHONES_PORT
         amixer -c 0 set 'Auto-Mute Mode' 'Line Out+Speaker'
-        __notify "Switched to $HEADPHONES_PORT"
-    fi
-}
-
-__notify() {
-    if [ -x "$(command -v zenity)" ]; then
-        zenity --notification --text ${@:1}
-    elif [ -x "$(command -v kdialog)" ]; then
-        kdialog --title "Output Audio Switcher" --passivepopup "${@:1}"
+        TITLE="Output Audio Switcher" MESSAGE="Switched to $HEADPHONES_PORT" notify
     fi
 }
 
