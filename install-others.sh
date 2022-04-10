@@ -92,6 +92,8 @@ __install_apt_packages() {
     __install_apt_package uget
 
     __install_apt_package qbittorrent
+
+    __install_apt_package ufw
 }
 
 __install_apt_package() {
