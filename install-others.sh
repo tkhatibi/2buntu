@@ -188,7 +188,7 @@ __install_nvm_node_yarn() {
     if ! [ -x "$(command -v npm)" ]; then
         nvm install --lts
 
-        # nvm alias default node
+        nvm alias default node
 
         TITLE="NVM" MESSAGE="node and npm installed successfully" notify
     fi
